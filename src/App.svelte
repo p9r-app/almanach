@@ -2,9 +2,9 @@
   import Month from "./components/Month.svelte";
   import { getMonthsByYear } from "./util.js";
 
-  const currentYear = 2481;
+  let currentYear = 2480;
 
-  const currentYearMonths = getMonthsByYear(currentYear);
+  $: currentYearMonths = getMonthsByYear(currentYear);
 </script>
 
 <style>
@@ -14,6 +14,8 @@
 </style>
 
 <main>
+  <input type="number" min={1000} step={1} bind:value={currentYear} />
+
   {#each currentYearMonths as month}
     <div class="month">
       {#if month.intercalaryHoliday}

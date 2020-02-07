@@ -6,17 +6,15 @@
 
   const ALIGNMENT = 32;
 
-  const preOffsetDays = [...Array(offset).keys()];
+  $: preOffsetDays = [...Array(offset).keys()];
 
-  const postOffsetDays = [
+  $: postOffsetDays = [
     ...Array(
       (NUM_WEEKDAYS - ((offset + days) % NUM_WEEKDAYS)) % NUM_WEEKDAYS
     ).keys()
   ];
 
-  const fullDays = [...Array(days).keys()];
-
-  const needsOffset = () => offset + days > ALIGNMENT;
+  $: fullDays = [...Array(days).keys()];
 </script>
 
 <style>
@@ -42,17 +40,13 @@
   <div class="day">Konistag</div>
   <div class="day">Angestag</div>
   <div class="day">Festag</div>
-  {#if needsOffset()}
-    {#each preOffsetDays as _}
-      <div class="day">/</div>
-    {/each}
-  {/if}
+  {#each preOffsetDays as _}
+    <div class="day">/</div>
+  {/each}
   {#each fullDays as dayIdx}
     <div class="day">{dayIdx + 1}</div>
   {/each}
-  {#if needsOffset()}
-    {#each postOffsetDays as _}
-      <div class="day">/</div>
-    {/each}
-  {/if}
+  {#each postOffsetDays as _}
+    <div class="day">/</div>
+  {/each}
 </section>
