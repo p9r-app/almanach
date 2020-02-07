@@ -1,14 +1,17 @@
 <script>
+  import { NUM_WEEKDAYS } from "../util.js";
+
   export let days;
   export let offset;
 
   const ALIGNMENT = 32;
-  const NUM_WEEKDAYS = 8;
 
   const preOffsetDays = [...Array(offset).keys()];
 
   const postOffsetDays = [
-    ...Array(NUM_WEEKDAYS + ALIGNMENT - (offset + days)).keys()
+    ...Array(
+      (NUM_WEEKDAYS - ((offset + days) % NUM_WEEKDAYS)) % NUM_WEEKDAYS
+    ).keys()
   ];
 
   const fullDays = [...Array(days).keys()];
