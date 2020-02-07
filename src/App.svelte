@@ -3,5 +3,5 @@
 </script>
 
 <main>
-  <Month />
+  <Month days={33} offset={0} />
 </main>
