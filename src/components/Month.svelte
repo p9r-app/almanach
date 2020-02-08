@@ -29,18 +29,24 @@
   .day {
     display: block;
     border: 1px solid darkorange;
+    padding: 0.5em;
+    text-align: center;
+  }
+
+  .label {
+    text-align: left;
   }
 </style>
 
 <section>
-  <div class="day">Wellentag</div>
-  <div class="day">Aubentag</div>
-  <div class="day">Marktag</div>
-  <div class="day">Backertag</div>
-  <div class="day">Bezahltag</div>
-  <div class="day">Konistag</div>
-  <div class="day">Angestag</div>
-  <div class="day">Festag</div>
+  <div class="day label">Wellentag</div>
+  <div class="day label">Aubentag</div>
+  <div class="day label">Marktag</div>
+  <div class="day label">Backertag</div>
+  <div class="day label">Bezahltag</div>
+  <div class="day label">Konistag</div>
+  <div class="day label">Angestag</div>
+  <div class="day label">Festag</div>
   {#each preOffsetDays as _}
     <div class="day">/</div>
   {/each}
