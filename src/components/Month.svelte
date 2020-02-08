@@ -23,11 +23,12 @@
     grid-template-columns: repeat(minmax(5, 6), 1fr);
     grid-template-rows: repeat(8, 1fr);
     grid-auto-flow: column;
+    border: 1px solid darkorange;
   }
 
   .day {
     display: block;
-    border: 2px solid darkorange;
+    border: 1px solid darkorange;
   }
 </style>
 

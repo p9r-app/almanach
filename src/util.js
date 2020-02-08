@@ -7,6 +7,9 @@ const weekdayOffsetByYear = year => seriesByYear(year) * 2;
 // The number of days per week
 export const NUM_WEEKDAYS = 8;
 
+// The number of months
+export const NUM_MONTHS = 12;
+
 export const MOON_PASE_NEW = "new";
 export const MOON_PASE_FULL = "full";
 
