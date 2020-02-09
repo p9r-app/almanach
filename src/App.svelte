@@ -9,6 +9,8 @@
   $: currentYearMonths = getMonthsByYear(currentYear);
   $: currentMonth = currentYearMonths[currentMonthIdx];
 
+  // Methods for month scrubbing
+
   const nextMonth = () => {
     const tmpMonthIdx = currentMonthIdx + 1;
 
@@ -30,6 +32,12 @@
       currentMonthIdx -= 1;
     }
   };
+
+  // Methods changing the current date (-1 for inter)
+
+  let currentDay = { regular: 0, month: 0, year: 2480 };
+
+  const advanceByDays = days => {};
 </script>
 
 <style>
@@ -44,12 +52,6 @@
   <button class="next" on:click={nextMonth}>Next Month</button>
 
   <div class="month">
-    {#if currentMonth.intercalaryHoliday}
-      <p>{currentMonth.intercalaryHoliday.name}</p>
-    {/if}
-    <h2>{currentMonth.name}</h2>
-    <Month
-      days={currentMonth.numberOfDays}
-      offset={currentMonth.weekdayOffset} />
+    <Month month={currentMonth} />
   </div>
 </main>

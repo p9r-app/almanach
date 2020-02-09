@@ -1,20 +1,19 @@
 <script>
   import { NUM_WEEKDAYS } from "../util.js";
 
-  export let days;
-  export let offset;
+  export let month;
 
-  const ALIGNMENT = 32;
-
-  $: preOffsetDays = [...Array(offset).keys()];
+  $: preOffsetDays = [...Array(month.weekdayOffset).keys()];
 
   $: postOffsetDays = [
     ...Array(
-      (NUM_WEEKDAYS - ((offset + days) % NUM_WEEKDAYS)) % NUM_WEEKDAYS
+      (NUM_WEEKDAYS -
+        ((month.weekdayOffset + month.numberOfDays) % NUM_WEEKDAYS)) %
+        NUM_WEEKDAYS
     ).keys()
   ];
 
-  $: fullDays = [...Array(days).keys()];
+  $: fullDays = [...Array(month.numberOfDays).keys()];
 </script>
 
 <style>
@@ -26,11 +25,18 @@
     border: 1px solid darkorange;
   }
 
-  .day {
+  .cell {
     display: block;
     border: 1px solid darkorange;
     padding: 0.5em;
+  }
+
+  .day {
     text-align: center;
+  }
+
+  .none {
+    background: gray;
   }
 
   .label {
@@ -38,22 +44,27 @@
   }
 </style>
 
+{#if month.intercalaryHoliday}
+  <p>{month.intercalaryHoliday.name}</p>
+{/if}
+<h2>{month.name}</h2>
+
 <section>
-  <div class="day label">Wellentag</div>
-  <div class="day label">Aubentag</div>
-  <div class="day label">Marktag</div>
-  <div class="day label">Backertag</div>
-  <div class="day label">Bezahltag</div>
-  <div class="day label">Konistag</div>
-  <div class="day label">Angestag</div>
-  <div class="day label">Festag</div>
+  <div class="cell label">Wellentag</div>
+  <div class="cell label">Aubentag</div>
+  <div class="cell label">Marktag</div>
+  <div class="cell label">Backertag</div>
+  <div class="cell label">Bezahltag</div>
+  <div class="cell label">Konistag</div>
+  <div class="cell label">Angestag</div>
+  <div class="cell label">Festag</div>
   {#each preOffsetDays as _}
-    <div class="day">/</div>
+    <div class="cell none" />
   {/each}
   {#each fullDays as dayIdx}
-    <div class="day">{dayIdx + 1}</div>
+    <div class="cell day">{dayIdx + 1}</div>
   {/each}
   {#each postOffsetDays as _}
-    <div class="day">/</div>
+    <div class="cell none" />
   {/each}
 </section>
