@@ -1,5 +1,6 @@
 <script>
   import { NUM_WEEKDAYS } from "../util.js";
+  import { currentDate } from "../stores.js";
 
   export let month;
 
@@ -14,6 +15,18 @@
   ];
 
   $: fullDays = [...Array(month.numberOfDays).keys()];
+
+  const saveTheDate = day => () =>
+    ($currentDate.date = {
+      ...$currentDate.date,
+      ...$currentDate.scrub,
+      day: day
+    });
+
+  const isActive = day =>
+    $currentDate.scrub.year === $currentDate.date.year &&
+    $currentDate.scrub.month === $currentDate.date.month &&
+    day === $currentDate.date.day;
 </script>
 
 <style>
@@ -44,12 +57,12 @@
     text-align: center;
   }
 
-  .none {
-    background: var(--black);
-  }
-
   .label {
     text-align: left;
+  }
+
+  .cell.active {
+    background: var(--selection-green);
   }
 </style>
 
@@ -63,12 +76,17 @@
   <div class="cell label">Angestag</div>
   <div class="cell label">Festag</div>
   {#each preOffsetDays as _}
-    <div class="cell none" />
+    <div class="cell" />
   {/each}
   {#each fullDays as dayIdx}
-    <button class="cell day">{dayIdx + 1}</button>
+    <button
+      class="cell day"
+      class:active={isActive(dayIdx)}
+      on:click={saveTheDate(dayIdx)}>
+      {dayIdx + 1}
+    </button>
   {/each}
   {#each postOffsetDays as _}
-    <div class="cell none" />
+    <div class="cell" />
   {/each}
 </section>

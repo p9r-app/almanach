@@ -5,41 +5,32 @@
   import { getMonthsByYear, NUM_MONTHS, NUM_WEEKDAYS } from "./util.js";
   import { currentDate } from "./stores.js";
 
-  let currentYear = 2480;
-
-  let currentMonthIdx = 0;
-
-  $: currentYearMonths = getMonthsByYear(currentYear);
-  $: currentMonth = currentYearMonths[currentMonthIdx];
+  $: currentYearMonths = getMonthsByYear($currentDate.scrub.year);
+  $: currentMonth = currentYearMonths[$currentDate.scrub.month];
 
   // Methods for month scrubbing
 
   const nextMonth = () => {
-    const tmpMonthIdx = currentMonthIdx + 1;
+    const tmpMonthIdx = $currentDate.scrub.month + 1;
 
     if (tmpMonthIdx >= NUM_MONTHS) {
-      currentYear += 1;
-      currentMonthIdx = 0;
+      $currentDate.scrub.year += 1;
+      $currentDate.scrub.month = 0;
     } else {
-      currentMonthIdx += 1;
+      $currentDate.scrub.month += 1;
     }
   };
 
   const prevMonth = () => {
-    const tmpMonthIdx = currentMonthIdx - 1;
+    const tmpMonthIdx = $currentDate.scrub.month - 1;
 
     if (tmpMonthIdx < 0) {
-      currentYear -= 1;
-      currentMonthIdx = NUM_MONTHS - 1;
+      $currentDate.scrub.year -= 1;
+      $currentDate.scrub.month = NUM_MONTHS - 1;
     } else {
-      currentMonthIdx -= 1;
+      $currentDate.scrub.month -= 1;
     }
   };
-
-  // Methods changing the current date (-1 for inter)
-
-  $currentDate = { year: 2480, month: 0, day: 0 };
-  // let currentDate = { year: 2480, intercalaryHoliday: intercalaryHolidayNames.MITTERFRUHL };
 
   const advanceByDays = days => {};
 </script>
@@ -98,7 +89,7 @@
         min={1000}
         step={1}
         pattern="\d*"
-        bind:value={currentYear} />
+        bind:value={$currentDate.scrub.year} />
     </div>
     <button class="scrub" on:click={nextMonth}>
       <RightArrow />

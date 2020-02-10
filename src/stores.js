@@ -5,8 +5,12 @@ function createHashState() {
   let state = loadFromHash();
 
   if (!state) {
-    state = { year: 2400, month: 0, day: 0 };
+    state = {
+      date: { year: 2400, month: 0, day: 0 }
+    };
   }
+
+  state.scrub = { year: state.date.year, month: state.date.month };
 
   const { subscribe, set } = writable(state);
 
