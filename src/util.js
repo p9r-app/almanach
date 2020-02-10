@@ -115,3 +115,21 @@ export const getMonthsByYear = (year = 1000) => {
     } // 11
   ];
 };
+
+// save and load mechanic
+
+export const saveToHash = state => {
+  window.location.hash = btoa(JSON.stringify(state));
+};
+
+export const loadFromHash = () => {
+  if (window.location.hash.length > 0) {
+    const base = atob(window.location.hash.slice(1));
+
+    if (base.length > 0) {
+      return JSON.parse(base);
+    }
+  }
+
+  return null;
+};

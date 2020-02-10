@@ -3,6 +3,7 @@
   import LeftArrow from "./svgs/LeftArrow.svelte";
   import RightArrow from "./svgs/RightArrow.svelte";
   import { getMonthsByYear, NUM_MONTHS, NUM_WEEKDAYS } from "./util.js";
+  import { currentDate } from "./stores.js";
 
   let currentYear = 2480;
 
@@ -37,7 +38,7 @@
 
   // Methods changing the current date (-1 for inter)
 
-  let currentDate = { year: 2480, month: 0, day: 0 };
+  $currentDate = { year: 2480, month: 0, day: 0 };
   // let currentDate = { year: 2480, intercalaryHoliday: intercalaryHolidayNames.MITTERFRUHL };
 
   const advanceByDays = days => {};

@@ -53,10 +53,6 @@
   }
 </style>
 
-{#if month.intercalaryHoliday}
-  <p>{month.intercalaryHoliday.name}</p>
-{/if}
-
 <section>
   <div class="cell label">Wellentag</div>
   <div class="cell label">Aubentag</div>
