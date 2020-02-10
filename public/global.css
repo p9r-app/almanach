@@ -71,3 +71,14 @@ td:not([align]),
 th:not([align]) {
   text-align: left;
 }
+
+:root {
+  --selection-green: #52be80;
+  --dark-gray: #e5e7e9;
+  --light-gray: #f2f3f4;
+  --black: #000;
+}
+
+* {
+  font-family: "EB Garamond", serif;
+}

@@ -22,21 +22,30 @@
     grid-template-columns: repeat(minmax(5, 6), 1fr);
     grid-template-rows: repeat(8, 1fr);
     grid-auto-flow: column;
-    border: 1px solid darkorange;
   }
 
   .cell {
     display: block;
-    border: 1px solid darkorange;
     padding: 0.5em;
+    font-size: 1.125em;
+  }
+
+  .cell:nth-child(odd) {
+    background: var(--light-gray);
+  }
+
+  .cell:nth-child(even) {
+    background: var(--dark-gray);
   }
 
   .day {
+    background: none;
+    border: none;
     text-align: center;
   }
 
   .none {
-    background: gray;
+    background: var(--black);
   }
 
   .label {
@@ -47,7 +56,6 @@
 {#if month.intercalaryHoliday}
   <p>{month.intercalaryHoliday.name}</p>
 {/if}
-<h2>{month.name}</h2>
 
 <section>
   <div class="cell label">Wellentag</div>
@@ -62,7 +70,7 @@
     <div class="cell none" />
   {/each}
   {#each fullDays as dayIdx}
-    <div class="cell day">{dayIdx + 1}</div>
+    <button class="cell day">{dayIdx + 1}</button>
   {/each}
   {#each postOffsetDays as _}
     <div class="cell none" />

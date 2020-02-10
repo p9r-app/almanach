@@ -1,5 +1,7 @@
 <script>
   import Month from "./components/Month.svelte";
+  import LeftArrow from "./svgs/LeftArrow.svelte";
+  import RightArrow from "./svgs/RightArrow.svelte";
   import { getMonthsByYear, NUM_MONTHS, NUM_WEEKDAYS } from "./util.js";
 
   let currentYear = 2480;
@@ -35,23 +37,72 @@
 
   // Methods changing the current date (-1 for inter)
 
-  let currentDay = { regular: 0, month: 0, year: 2480 };
+  let currentDate = { year: 2480, month: 0, day: 0 };
+  // let currentDate = { year: 2480, intercalaryHoliday: intercalaryHolidayNames.MITTERFRUHL };
 
   const advanceByDays = days => {};
 </script>
 
 <style>
-  .month {
-    margin-bottom: 1em;
+  nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: var(--light-gray);
+  }
+
+  .scrub {
+    border: none;
+    background: none;
+    padding: 1.5em 2em;
+  }
+
+  .monthYearDisplay {
+    padding: 0.5em;
+  }
+
+  .monthName {
+    font-size: 1.5em;
+  }
+
+  .yearNumber {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    width: 2.5em;
+    text-decoration: underline;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
   }
 </style>
 
 <main>
-  <input type="number" min={1000} step={1} bind:value={currentYear} />
-  <button class="prev" on:click={prevMonth}>Previous Month</button>
-  <button class="next" on:click={nextMonth}>Next Month</button>
+  <nav>
+    <button class="scrub" on:click={prevMonth}>
+      <LeftArrow />
+    </button>
+    <div class="monthYearDisplay">
+      <span class="monthName">{currentMonth.name}</span>
+      <input
+        class="yearNumber"
+        type="number"
+        min={1000}
+        step={1}
+        pattern="\d*"
+        bind:value={currentYear} />
+    </div>
+    <button class="scrub" on:click={nextMonth}>
+      <RightArrow />
+    </button>
+  </nav>
 
-  <div class="month">
-    <Month month={currentMonth} />
-  </div>
+  <Month month={currentMonth} />
 </main>

@@ -4,8 +4,15 @@ import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import json from "@rollup/plugin-json";
+import sveltePreprocess from "svelte-preprocess";
 
 const production = !process.env.ROLLUP_WATCH;
+
+const preprocess = sveltePreprocess({
+  postcss: {
+    plugins: [require("autoprefixer")]
+  }
+});
 
 export default {
   input: "src/main.js",
@@ -24,7 +31,8 @@ export default {
       // a separate file - better for performance
       css: css => {
         css.write("public/build/bundle.css");
-      }
+      },
+      preprocess
     }),
 
     // If you have external dependencies installed from
@@ -63,7 +71,7 @@ function serve() {
       if (!started) {
         started = true;
 
-        require("child_process").spawn("npm", ["run", "start", "--", "--dev"], {
+        require("child_process").spawn("yarn", ["start", "--", "--dev"], {
           stdio: ["ignore", "inherit", "inherit"],
           shell: true
         });
