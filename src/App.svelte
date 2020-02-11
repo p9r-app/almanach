@@ -6,11 +6,15 @@
   import { currentDate } from "./stores.js";
 
   $: currentYearMonths = getMonthsByYear($currentDate.scrub.year);
+
+  $: prevMonth =
+    currentYearMonths[($currentDate.scrub.month - 1 + NUM_MONTHS) % NUM_MONTHS];
   $: currentMonth = currentYearMonths[$currentDate.scrub.month];
+  $: nextMonth = currentYearMonths[($currentDate.scrub.month + 1) % NUM_MONTHS];
 
   // Methods for month scrubbing
 
-  const nextMonth = () => {
+  function scrubNextMonth() {
     const tmpMonthIdx = $currentDate.scrub.month + 1;
 
     if (tmpMonthIdx >= NUM_MONTHS) {
@@ -19,9 +23,9 @@
     } else {
       $currentDate.scrub.month += 1;
     }
-  };
+  }
 
-  const prevMonth = () => {
+  function scrubPrevMonth() {
     const tmpMonthIdx = $currentDate.scrub.month - 1;
 
     if (tmpMonthIdx < 0) {
@@ -30,13 +34,15 @@
     } else {
       $currentDate.scrub.month -= 1;
     }
-  };
+  }
 
   const advanceByDays = days => {};
+
+  const reduceByDays = days => {};
 </script>
 
 <style>
-  nav {
+  .scrubbing {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -53,7 +59,7 @@
   .monthYearDisplay {
     flex-grow: 1;
     text-align: center;
-    padding: 0.5em;
+    padding-top: 0.9em;
   }
 
   .monthName {
@@ -69,6 +75,26 @@
     text-decoration: underline;
   }
 
+  .navigation {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navigation button {
+    flex-grow: 1;
+  }
+
+  .weekNavigation {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .dayNavigation {
+    display: flex;
+    flex-direction: row;
+  }
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -81,8 +107,8 @@
 </style>
 
 <main>
-  <nav>
-    <button class="scrub" on:click={prevMonth}>
+  <nav class="scrubbing">
+    <button class="scrub" on:click={scrubPrevMonth}>
       <LeftArrow />
     </button>
     <div class="monthYearDisplay">
@@ -95,10 +121,21 @@
         pattern="\d*"
         bind:value={$currentDate.scrub.year} />
     </div>
-    <button class="scrub" on:click={nextMonth}>
+    <button class="scrub" on:click={scrubNextMonth}>
       <RightArrow />
     </button>
   </nav>
 
   <Month month={currentMonth} />
+
+  <nav class="navigation">
+    <div class="weekNavigation">
+      <button class="prev">-Week</button>
+      <button class="next">+Week</button>
+    </div>
+    <div class="dayNavigation">
+      <button class="prev">-Day</button>
+      <button class="next">+Day</button>
+    </div>
+  </nav>
 </main>
