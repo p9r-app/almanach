@@ -14,7 +14,10 @@
     ).keys()
   ];
 
-  $: fullDays = [...Array(month.numberOfDays).keys()];
+  $: fullDays = [...Array(month.numberOfDays).keys()].map(id => ({
+    id,
+    selected: isActive(id)
+  }));
 
   const saveTheDate = day => () =>
     ($currentDate.date = {
@@ -27,14 +30,30 @@
     $currentDate.scrub.year === $currentDate.date.year &&
     $currentDate.scrub.month === $currentDate.date.month &&
     day === $currentDate.date.day;
+
+  $: intercalaryHolidayActive =
+    $currentDate.scrub.year === $currentDate.date.year &&
+    $currentDate.scrub.month === $currentDate.date.month &&
+    $currentDate.date.day === -1;
 </script>
 
 <style>
-  section {
+  .days-of-the-month {
     display: grid;
     grid-template-columns: repeat(minmax(5, 6), 1fr);
     grid-template-rows: repeat(8, 1fr);
     grid-auto-flow: column;
+  }
+
+  .iholiday {
+    display: block;
+    background: var(--dark-gray);
+    border: none;
+    font-weight: bold;
+    font-size: 1.25em;
+    padding: 0.5em;
+    width: 100%;
+    text-align: center;
   }
 
   .cell {
@@ -61,12 +80,22 @@
     text-align: left;
   }
 
-  .cell.active {
+  .cell.active,
+  .iholiday.active {
     background: var(--selection-green);
   }
 </style>
 
-<section>
+{#if month.intercalaryHoliday}
+  <button
+    class="iholiday"
+    class:active={intercalaryHolidayActive}
+    on:click={saveTheDate(-1)}>
+    {month.intercalaryHoliday.name}
+  </button>
+{/if}
+
+<section class="days-of-the-month">
   <div class="cell label">Wellentag</div>
   <div class="cell label">Aubentag</div>
   <div class="cell label">Marktag</div>
@@ -78,12 +107,12 @@
   {#each preOffsetDays as _}
     <div class="cell" />
   {/each}
-  {#each fullDays as dayIdx}
+  {#each fullDays as day}
     <button
       class="cell day"
-      class:active={isActive(dayIdx)}
-      on:click={saveTheDate(dayIdx)}>
-      {dayIdx + 1}
+      class:active={day.selected}
+      on:click={saveTheDate(day.id)}>
+      {day.id + 1}
     </button>
   {/each}
   {#each postOffsetDays as _}
