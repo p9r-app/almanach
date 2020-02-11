@@ -47,9 +47,12 @@
     border: none;
     background: none;
     padding: 1.5em 2em;
+    flex-grow: 1;
   }
 
   .monthYearDisplay {
+    flex-grow: 1;
+    text-align: center;
     padding: 0.5em;
   }
 
@@ -61,7 +64,7 @@
     background: none;
     border: none;
     font-size: 1.5em;
-    width: 2.5em;
+    width: 4.5ch;
     text-decoration: underline;
   }
 
