@@ -43,9 +43,15 @@
     }
   }
 
-  const advanceByDays = days => {};
+  function advanceByDays(days) {
+    if ($currentDate.date.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
+    }
+  }
 
-  const reduceByDays = days => {};
+  function impedeByDays(days) {
+    if ($currentDate.date.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
+    }
+  }
 </script>
 
 <style>
@@ -141,12 +147,16 @@
 
   <nav class="navigation">
     <div class="weekNavigation">
-      <button class="prev">-Week</button>
-      <button class="next">+Week</button>
+      <button class="prev" on:click={() => impedeByDays(NUM_WEEKDAYS)}>
+        -Week
+      </button>
+      <button class="next" on:click={() => advanceByDays(NUM_WEEKDAYS)}>
+        +Week
+      </button>
     </div>
     <div class="dayNavigation">
-      <button class="prev">-Day</button>
-      <button class="next">+Day</button>
+      <button class="prev" on:click={() => impedeByDays(1)}>-Day</button>
+      <button class="next" on:click={() => advanceByDays(1)}>+Day</button>
     </div>
   </nav>
 </main>
