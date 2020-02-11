@@ -65,6 +65,7 @@
     border: none;
     font-size: 1.5em;
     width: 4.5ch;
+    text-align: center;
     text-decoration: underline;
   }
 
