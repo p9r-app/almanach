@@ -1,16 +1,34 @@
 import { writable } from "svelte/store";
-import { saveToHash, loadFromHash } from "./util.js";
+import { saveToHash, loadFromHash, createIntercalaryHoliday } from "./util.js";
+import {
+  timeEntityTypes,
+  intercalaryHolidayNames,
+  intercalaryHolidayMonths
+} from "./constants.js";
 
 function createHashState() {
   let state = loadFromHash();
 
   if (!state) {
     state = {
-      date: { year: 2400, month: 0, day: 0 }
+      date: {
+        year: 2400,
+        ...createIntercalaryHoliday(intercalaryHolidayNames.HEXENTAG)
+      }
     };
   }
 
-  state.scrub = { year: state.date.year, month: state.date.month };
+  if (state.date.entityType === timeEntityTypes.MONTH) {
+    state.scrub = {
+      year: state.date.year,
+      month: state.month
+    };
+  } else {
+    state.scrub = {
+      year: state.date.year,
+      month: intercalaryHolidayMonths[state.date.day]
+    };
+  }
 
   const { subscribe, set } = writable(state);
 

@@ -2,15 +2,22 @@
   import Month from "./components/Month.svelte";
   import LeftArrow from "./svgs/LeftArrow.svelte";
   import RightArrow from "./svgs/RightArrow.svelte";
+  import IntercalaryHoliday from "./components/IntercalaryHoliday.svelte";
+
   import { getMonthsByYear, NUM_MONTHS, NUM_WEEKDAYS } from "./util.js";
+  import { renderSlices, timeEntityTypes } from "./constants.js";
   import { currentDate } from "./stores.js";
 
   $: currentYearMonths = getMonthsByYear($currentDate.scrub.year);
+  $: currentRenderSet = renderSlices[$currentDate.scrub.month].map(
+    slice => currentYearMonths[slice]
+  );
 
-  $: prevMonth =
-    currentYearMonths[($currentDate.scrub.month - 1 + NUM_MONTHS) % NUM_MONTHS];
-  $: currentMonth = currentYearMonths[$currentDate.scrub.month];
-  $: nextMonth = currentYearMonths[($currentDate.scrub.month + 1) % NUM_MONTHS];
+  $: currentMonth =
+    currentRenderSet.length > 1 ? currentRenderSet[1] : currentRenderSet[0];
+
+  $: currentIntercalaryHoliday =
+    currentRenderSet.length > 1 ? currentRenderSet[0] : null;
 
   // Methods for month scrubbing
 
@@ -125,6 +132,10 @@
       <RightArrow />
     </button>
   </nav>
+
+  {#if currentIntercalaryHoliday}
+    <IntercalaryHoliday holiday={currentIntercalaryHoliday} />
+  {/if}
 
   <Month month={currentMonth} />
 

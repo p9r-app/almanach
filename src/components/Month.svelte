@@ -1,5 +1,6 @@
 <script>
-  import { NUM_WEEKDAYS } from "../util.js";
+  import { NUM_WEEKDAYS, createMonth } from "../util.js";
+  import { timeEntityTypes } from "../constants.js";
   import { currentDate } from "../stores.js";
 
   export let month;
@@ -21,39 +22,23 @@
 
   const saveTheDate = day => () =>
     ($currentDate.date = {
-      ...$currentDate.date,
-      ...$currentDate.scrub,
-      day: day
+      year: $currentDate.scrub.year,
+      ...createMonth($currentDate.scrub.month, day)
     });
 
   const isActive = day =>
     $currentDate.scrub.year === $currentDate.date.year &&
+    $currentDate.date.entityType === timeEntityTypes.MONTH &&
     $currentDate.scrub.month === $currentDate.date.month &&
     day === $currentDate.date.day;
-
-  $: intercalaryHolidayActive =
-    $currentDate.scrub.year === $currentDate.date.year &&
-    $currentDate.scrub.month === $currentDate.date.month &&
-    $currentDate.date.day === -1;
 </script>
 
 <style>
-  .days-of-the-month {
+  section {
     display: grid;
     grid-template-columns: repeat(minmax(5, 6), 1fr);
     grid-template-rows: repeat(8, 1fr);
     grid-auto-flow: column;
-  }
-
-  .iholiday {
-    display: block;
-    background: var(--dark-gray);
-    border: none;
-    font-weight: bold;
-    font-size: 1.25em;
-    padding: 0.5em;
-    width: 100%;
-    text-align: center;
   }
 
   .cell {
@@ -80,22 +65,12 @@
     text-align: left;
   }
 
-  .cell.active,
-  .iholiday.active {
+  .cell.active {
     background: var(--selection-green);
   }
 </style>
 
-{#if month.intercalaryHoliday}
-  <button
-    class="iholiday"
-    class:active={intercalaryHolidayActive}
-    on:click={saveTheDate(-1)}>
-    {month.intercalaryHoliday.name}
-  </button>
-{/if}
-
-<section class="days-of-the-month">
+<section>
   <div class="cell label">Wellentag</div>
   <div class="cell label">Aubentag</div>
   <div class="cell label">Marktag</div>
