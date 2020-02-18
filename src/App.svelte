@@ -99,27 +99,41 @@
     width: 100%;
     position: absolute;
     bottom: 0;
-  }
-
-  .navigation button {
-    flex-grow: 1;
+    padding: 0 1em;
   }
 
   .weekNavigation {
     display: flex;
     flex-direction: row;
+    margin-bottom: 1em;
   }
 
   .dayNavigation {
     display: flex;
     flex-direction: row;
+    margin-bottom: 1em;
   }
 
-  button {
-    padding: 1em;
+  .navigation button {
+    padding: 0.5em;
     text-align: center;
-    background: green;
+    background: var(--dark-gray);
     border: none;
+    font-size: 1.25em;
+    width: 40%;
+  }
+
+  .navigation > * {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .navigation button:active {
+    background: var(--selection-green);
+  }
+
+  .navigation button:focus {
+    background: var(--light-selection-green);
   }
 
   input::-webkit-outer-spin-button,
