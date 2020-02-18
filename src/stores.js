@@ -21,7 +21,7 @@ function createHashState() {
   if (state.date.entityType === timeEntityTypes.MONTH) {
     state.scrub = {
       year: state.date.year,
-      month: state.month
+      month: state.date.month
     };
   } else {
     state.scrub = {

@@ -1,3 +1,13 @@
+export const NUM_DAYS_PER_YEAR = 400;
+
+export const YEAR_CYCLE_LENGTH = 4;
+
+// The number of days per week
+export const NUM_WEEKDAYS = 8;
+
+// The number of months
+export const NUM_MONTHS = 12;
+
 export const monthNames = {
   NACHHEXEN: "Nachhexen",
   JAHRDRUNG: "Jahrdrung",

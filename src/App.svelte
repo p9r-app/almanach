@@ -4,8 +4,13 @@
   import RightArrow from "./svgs/RightArrow.svelte";
   import IntercalaryHoliday from "./components/IntercalaryHoliday.svelte";
 
-  import { getMonthsByYear, NUM_MONTHS, NUM_WEEKDAYS } from "./util.js";
-  import { renderSlices, timeEntityTypes } from "./constants.js";
+  import { getMonthsByYear } from "./util.js";
+  import {
+    renderSlices,
+    timeEntityTypes,
+    NUM_MONTHS,
+    NUM_WEEKDAYS
+  } from "./constants.js";
   import { currentDate } from "./stores.js";
 
   $: currentYearMonths = getMonthsByYear($currentDate.scrub.year);
@@ -72,7 +77,7 @@
   .monthYearDisplay {
     flex-grow: 1;
     text-align: center;
-    padding-top: 0.9em;
+    padding-top: 0.5em;
   }
 
   .monthName {
@@ -92,6 +97,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 
   .navigation button {
@@ -106,6 +113,13 @@
   .dayNavigation {
     display: flex;
     flex-direction: row;
+  }
+
+  button {
+    padding: 1em;
+    text-align: center;
+    background: green;
+    border: none;
   }
 
   input::-webkit-outer-spin-button,
@@ -148,15 +162,17 @@
   <nav class="navigation">
     <div class="weekNavigation">
       <button class="prev" on:click={() => impedeByDays(NUM_WEEKDAYS)}>
-        -Week
+        Previous week
       </button>
       <button class="next" on:click={() => advanceByDays(NUM_WEEKDAYS)}>
-        +Week
+        Next week
       </button>
     </div>
     <div class="dayNavigation">
-      <button class="prev" on:click={() => impedeByDays(1)}>-Day</button>
-      <button class="next" on:click={() => advanceByDays(1)}>+Day</button>
+      <button class="prev" on:click={() => impedeByDays(1)}>
+        Previous day
+      </button>
+      <button class="next" on:click={() => advanceByDays(1)}>Next day</button>
     </div>
   </nav>
 </main>

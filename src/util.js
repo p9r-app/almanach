@@ -1,20 +1,16 @@
 import {
   monthNames,
   intercalaryHolidayNames,
-  timeEntityTypes
+  timeEntityTypes,
+  YEAR_CYCLE_LENGTH,
+  NUM_WEEKDAYS
 } from "./constants.js";
 
 // Returns a zero-based index of the current series
-const seriesByYear = year => year % 4;
+const seriesByYear = year => year % YEAR_CYCLE_LENGTH;
 
 // Returns the offset of the weekdays at the beginning of the year
 const weekdayOffsetByYear = year => seriesByYear(year) * 2;
-
-// The number of days per week
-export const NUM_WEEKDAYS = 8;
-
-// The number of months
-export const NUM_MONTHS = 12;
 
 export const NUM_TIME_ENTITIES = 18;
 

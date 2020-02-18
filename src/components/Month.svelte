@@ -1,19 +1,16 @@
 <script>
-  import { NUM_WEEKDAYS, createMonth } from "../util.js";
-  import { timeEntityTypes } from "../constants.js";
+  import { createMonth } from "../util.js";
+  import { timeEntityTypes, NUM_WEEKDAYS } from "../constants.js";
   import { currentDate } from "../stores.js";
 
   export let month;
 
-  $: preOffsetDays = [...Array(month.weekdayOffset).keys()];
+  $: numPreOffsetDays = month.weekdayOffset;
 
-  $: postOffsetDays = [
-    ...Array(
-      (NUM_WEEKDAYS -
-        ((month.weekdayOffset + month.numberOfDays) % NUM_WEEKDAYS)) %
-        NUM_WEEKDAYS
-    ).keys()
-  ];
+  $: numPostOffsetDays =
+    (NUM_WEEKDAYS -
+      ((month.weekdayOffset + month.numberOfDays) % NUM_WEEKDAYS)) %
+    NUM_WEEKDAYS;
 
   $: fullDays = [...Array(month.numberOfDays).keys()].map(id => ({
     id,
@@ -79,7 +76,7 @@
   <div class="cell label">Konistag</div>
   <div class="cell label">Angestag</div>
   <div class="cell label">Festag</div>
-  {#each preOffsetDays as _}
+  {#each Array(numPreOffsetDays) as _}
     <div class="cell" />
   {/each}
   {#each fullDays as day}
@@ -90,7 +87,7 @@
       {day.id + 1}
     </button>
   {/each}
-  {#each postOffsetDays as _}
+  {#each Array(numPostOffsetDays) as _}
     <div class="cell" />
   {/each}
 </section>
