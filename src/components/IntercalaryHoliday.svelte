@@ -1,21 +1,21 @@
 <script>
   import { createIntercalaryHoliday } from "../util.js";
   import { timeEntityTypes } from "../constants.js";
-  import { currentDate } from "../stores.js";
+  import { currentDate, currentScrub } from "../stores.js";
 
   export let holiday;
 
   function handleClick() {
-    $currentDate.date = {
-      year: $currentDate.scrub.year,
+    $currentDate = {
+      year: $currentScrub.year,
       ...createIntercalaryHoliday(holiday.name)
     };
   }
 
   $: active =
-    $currentDate.scrub.year === $currentDate.date.year &&
-    $currentDate.date.entityType === timeEntityTypes.INTERCALARY_HOLIDAY &&
-    holiday.name === $currentDate.date.day;
+    $currentScrub.year === $currentDate.year &&
+    $currentDate.entityType === timeEntityTypes.INTERCALARY_HOLIDAY &&
+    holiday.name === $currentDate.day;
 </script>
 
 <style>

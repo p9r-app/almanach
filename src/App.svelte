@@ -11,10 +11,10 @@
     NUM_MONTHS,
     NUM_WEEKDAYS
   } from "./constants.js";
-  import { currentDate } from "./stores.js";
+  import { currentDate, currentScrub } from "./stores.js";
 
-  $: currentYearMonths = getMonthsByYear($currentDate.scrub.year);
-  $: currentRenderSet = renderSlices[$currentDate.scrub.month].map(
+  $: currentYearMonths = getMonthsByYear($currentScrub.year);
+  $: currentRenderSet = renderSlices[$currentScrub.month].map(
     slice => currentYearMonths[slice]
   );
 
@@ -27,34 +27,34 @@
   // Methods for month scrubbing
 
   function scrubNextMonth() {
-    const tmpMonthIdx = $currentDate.scrub.month + 1;
+    const tmpMonthIdx = $currentScrub.month + 1;
 
     if (tmpMonthIdx >= NUM_MONTHS) {
-      $currentDate.scrub.year += 1;
-      $currentDate.scrub.month = 0;
+      $currentScrub.year += 1;
+      $currentScrub.month = 0;
     } else {
-      $currentDate.scrub.month += 1;
+      $currentScrub.month += 1;
     }
   }
 
   function scrubPrevMonth() {
-    const tmpMonthIdx = $currentDate.scrub.month - 1;
+    const tmpMonthIdx = $currentScrub.month - 1;
 
     if (tmpMonthIdx < 0) {
-      $currentDate.scrub.year -= 1;
-      $currentDate.scrub.month = NUM_MONTHS - 1;
+      $currentScrub.year -= 1;
+      $currentScrub.month = NUM_MONTHS - 1;
     } else {
-      $currentDate.scrub.month -= 1;
+      $currentScrub.month -= 1;
     }
   }
 
   function advanceByDays(days) {
-    if ($currentDate.date.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
+    if ($currentDate.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
     }
   }
 
   function impedeByDays(days) {
-    if ($currentDate.date.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
+    if ($currentDate.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
     }
   }
 </script>
@@ -160,7 +160,7 @@
         min={1000}
         step={1}
         pattern="\d*"
-        bind:value={$currentDate.scrub.year} />
+        bind:value={$currentScrub.year} />
     </div>
     <button class="scrub" on:click={scrubNextMonth}>
       <RightArrow />

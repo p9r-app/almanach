@@ -11,34 +11,37 @@ function createHashState() {
 
   if (!state) {
     state = {
-      date: {
-        year: 2400,
-        ...createIntercalaryHoliday(intercalaryHolidayNames.HEXENTAG)
-      }
+      year: 2480,
+      ...createIntercalaryHoliday(intercalaryHolidayNames.HEXENTAG)
     };
   }
 
-  if (state.date.entityType === timeEntityTypes.MONTH) {
-    state.scrub = {
-      year: state.date.year,
-      month: state.date.month
-    };
-  } else {
-    state.scrub = {
-      year: state.date.year,
-      month: intercalaryHolidayMonths[state.date.day]
-    };
-  }
+  const scrubStore =
+    state.entityType === timeEntityTypes.MONTH
+      ? writable({
+          year: state.year,
+          month: state.month
+        })
+      : writable({
+          year: state.year,
+          month: intercalaryHolidayMonths[state.day]
+        });
 
   const { subscribe, set } = writable(state);
 
-  return {
+  const dateStore = {
     subscribe,
     set: state => {
       saveToHash(state);
       set(state);
     }
   };
+
+  return [dateStore, scrubStore];
 }
 
-export const currentDate = createHashState();
+const [dateStore, scrubStore] = createHashState();
+
+export const currentDate = dateStore;
+
+export const currentScrub = scrubStore;

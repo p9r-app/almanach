@@ -1,7 +1,7 @@
 <script>
   import { createMonth } from "../util.js";
   import { timeEntityTypes, NUM_WEEKDAYS } from "../constants.js";
-  import { currentDate } from "../stores.js";
+  import { currentDate, currentScrub } from "../stores.js";
 
   export let month;
 
@@ -18,16 +18,16 @@
   }));
 
   const saveTheDate = day => () =>
-    ($currentDate.date = {
-      year: $currentDate.scrub.year,
-      ...createMonth($currentDate.scrub.month, day)
+    ($currentDate = {
+      year: $currentScrub.year,
+      ...createMonth($currentScrub.month, day)
     });
 
-  const isActive = day =>
-    $currentDate.scrub.year === $currentDate.date.year &&
-    $currentDate.date.entityType === timeEntityTypes.MONTH &&
-    $currentDate.scrub.month === $currentDate.date.month &&
-    day === $currentDate.date.day;
+  $: isActive = day =>
+    $currentScrub.year === $currentDate.year &&
+    $currentDate.entityType === timeEntityTypes.MONTH &&
+    $currentScrub.month === $currentDate.month &&
+    day === $currentDate.day;
 </script>
 
 <style>
