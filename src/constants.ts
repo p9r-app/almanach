@@ -8,20 +8,20 @@ export const NUM_WEEKDAYS = 8;
 // The number of months
 export const NUM_MONTHS = 12;
 
-export const monthNames = {
-  NACHHEXEN: "Nachhexen",
-  JAHRDRUNG: "Jahrdrung",
-  PFLUGZEIT: "Pflugzeit",
-  SIGMARZEIT: "Sigmarzeit",
-  SOMMERZEIT: "Sommerzeit",
-  VORGEHEIM: "Vorgeheim",
-  NACHGEHEIM: "Nachgeheim",
-  ERNTEZEIT: "Erntezeit",
-  BRAUZEIT: "Brauzeit",
-  KALDEZEIT: "Kaldezeit",
-  ULRICZEIT: "Ulriczeit",
-  VORHEXEN: "Vorhexen"
-};
+export enum MonthName {
+  NACHHEXEN = "Nachhexen",
+  JAHRDRUNG = "Jahrdrung",
+  PFLUGZEIT = "Pflugzeit",
+  SIGMARZEIT = "Sigmarzeit",
+  SOMMERZEIT = "Sommerzeit",
+  VORGEHEIM = "Vorgeheim",
+  NACHGEHEIM = "Nachgeheim",
+  ERNTEZEIT = "Erntezeit",
+  BRAUZEIT = "Brauzeit",
+  KALDEZEIT = "Kaldezeit",
+  ULRICZEIT = "Ulriczeit",
+  VORHEXEN = "Vorhexen"
+}
 
 export const intercalaryHolidayNames = {
   HEXENTAG: "Hexentag",

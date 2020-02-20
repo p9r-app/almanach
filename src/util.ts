@@ -1,5 +1,5 @@
 import {
-  monthNames,
+  MonthName,
   intercalaryHolidayNames,
   TimeEntityKind,
   YEAR_CYCLE_LENGTH,
@@ -27,7 +27,7 @@ export interface IntercalaryHolidayTimeEntity {
 
 export interface MonthTimeEntity {
   entityType: "MONTH";
-  name: string;
+  name: MonthName;
   numberOfDays: number;
   moonPhases: MoonPhases;
   weekdayOffset: number;
@@ -51,14 +51,14 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     },
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.NACHHEXEN,
+      name: MonthName.NACHHEXEN,
       numberOfDays: 32,
       moonPhases: { 12: MOON_PASE_NEW, 24: MOON_PASE_FULL },
       weekdayOffset: initialOffset % NUM_WEEKDAYS
     }, // 0
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.JAHRDRUNG,
+      name: MonthName.JAHRDRUNG,
       numberOfDays: 33,
       moonPhases: {
         5: MOON_PASE_NEW,
@@ -74,14 +74,14 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     },
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.PFLUGZEIT,
+      name: MonthName.PFLUGZEIT,
       numberOfDays: 33,
       moonPhases: { 8: MOON_PASE_FULL, 21: MOON_PASE_NEW },
       weekdayOffset: (initialOffset + 1) % NUM_WEEKDAYS
     }, // 2
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.SIGMARZEIT,
+      name: MonthName.SIGMARZEIT,
       numberOfDays: 33,
       moonPhases: {
         1: MOON_PASE_FULL,
@@ -92,7 +92,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     }, // 3
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.SOMMERZEIT,
+      name: MonthName.SOMMERZEIT,
       numberOfDays: 33,
       moonPhases: {
         5: MOON_PASE_NEW,
@@ -108,7 +108,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     },
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.VORGEHEIM,
+      name: MonthName.VORGEHEIM,
       numberOfDays: 32,
       moonPhases: { 8: MOON_PASE_FULL, 21: MOON_PASE_NEW },
       weekdayOffset: (initialOffset + 4) % NUM_WEEKDAYS
@@ -120,14 +120,14 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     },
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.NACHGEHEIM,
+      name: MonthName.NACHGEHEIM,
       numberOfDays: 33,
       moonPhases: { 12: MOON_PASE_NEW, 25: MOON_PASE_FULL },
       weekdayOffset: (initialOffset + 5) % NUM_WEEKDAYS
     }, // 6
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.ERNTEZEIT,
+      name: MonthName.ERNTEZEIT,
       numberOfDays: 33,
       moonPhases: {
         5: MOON_PASE_NEW,
@@ -143,14 +143,14 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     },
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.BRAUZEIT,
+      name: MonthName.BRAUZEIT,
       numberOfDays: 33,
       moonPhases: { 8: MOON_PASE_FULL, 21: MOON_PASE_NEW },
       weekdayOffset: (initialOffset + 6) % NUM_WEEKDAYS
     }, // 8
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.KALDEZEIT,
+      name: MonthName.KALDEZEIT,
       numberOfDays: 33,
       moonPhases: {
         0: MOON_PASE_FULL,
@@ -161,7 +161,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     }, // 9
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.ULRICZEIT,
+      name: MonthName.ULRICZEIT,
       numberOfDays: 33,
       moonPhases: {
         5: MOON_PASE_NEW,
@@ -177,7 +177,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     },
     {
       entityType: TimeEntityKind.MONTH,
-      name: monthNames.VORHEXEN,
+      name: MonthName.VORHEXEN,
       numberOfDays: 33,
       moonPhases: { 8: MOON_PASE_FULL, 21: MOON_PASE_NEW },
       weekdayOffset: (initialOffset + 1) % NUM_WEEKDAYS
