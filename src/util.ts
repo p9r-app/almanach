@@ -1,6 +1,6 @@
 import {
   MonthName,
-  intercalaryHolidayNames,
+  IntercalaryHolidayName,
   TimeEntityKind,
   YEAR_CYCLE_LENGTH,
   NUM_WEEKDAYS
@@ -21,7 +21,7 @@ export type MoonPhase = "new" | "full";
 
 export interface IntercalaryHolidayTimeEntity {
   entityType: "INTERCALARY_HOLIDAY";
-  name: string;
+  name: IntercalaryHolidayName;
   morr: boolean;
 }
 
@@ -46,7 +46,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
   return [
     {
       entityType: TimeEntityKind.INTERCALARY_HOLIDAY,
-      name: intercalaryHolidayNames.HEXENTAG,
+      name: IntercalaryHolidayName.HEXENTAG,
       morr: true
     },
     {
@@ -69,7 +69,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     }, // 1
     {
       entityType: TimeEntityKind.INTERCALARY_HOLIDAY,
-      name: intercalaryHolidayNames.MITTERFRUHL,
+      name: IntercalaryHolidayName.MITTERFRUHL,
       morr: false
     },
     {
@@ -103,7 +103,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     }, // 4
     {
       entityType: TimeEntityKind.INTERCALARY_HOLIDAY,
-      name: intercalaryHolidayNames.SONNSTILL,
+      name: IntercalaryHolidayName.SONNSTILL,
       morr: false
     },
     {
@@ -115,7 +115,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     }, // 5
     {
       entityType: TimeEntityKind.INTERCALARY_HOLIDAY,
-      name: intercalaryHolidayNames.GEHEIMNISTAG,
+      name: IntercalaryHolidayName.GEHEIMNISTAG,
       morr: true
     },
     {
@@ -138,7 +138,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     }, // 7
     {
       entityType: TimeEntityKind.INTERCALARY_HOLIDAY,
-      name: intercalaryHolidayNames.MITTHERBST,
+      name: IntercalaryHolidayName.MITTHERBST,
       morr: false
     },
     {
@@ -172,7 +172,7 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
     }, // 10
     {
       entityType: TimeEntityKind.INTERCALARY_HOLIDAY,
-      name: intercalaryHolidayNames.MONSTILLE,
+      name: IntercalaryHolidayName.MONSTILLE,
       morr: false
     },
     {

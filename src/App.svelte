@@ -14,7 +14,7 @@
     TimeEntityKind,
     NUM_MONTHS,
     NUM_WEEKDAYS,
-    intercalaryHolidayNames,
+    IntercalaryHolidayName,
     reverseRenderSlices
   } from "./constants.ts";
   import { currentDate, currentScrub } from "./stores.js";
@@ -72,7 +72,7 @@
         ) {
           currentDateCopy = {
             year: currentDateCopy.year + 1,
-            ...createIntercalaryHoliday(intercalaryHolidayNames.HEXENTAG)
+            ...createIntercalaryHoliday(IntercalaryHolidayName.HEXENTAG)
           };
         } else if (
           currentDateCopy.month < NUM_MONTHS - 1 &&

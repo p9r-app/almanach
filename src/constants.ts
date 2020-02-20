@@ -23,14 +23,14 @@ export enum MonthName {
   VORHEXEN = "Vorhexen"
 }
 
-export const intercalaryHolidayNames = {
-  HEXENTAG: "Hexentag",
-  MITTERFRUHL: "Mitterfruhl",
-  SONNSTILL: "Sonnstill",
-  GEHEIMNISTAG: "Geheimnistag",
-  MITTHERBST: "Mittherbst",
-  MONSTILLE: "Monstille"
-};
+export enum IntercalaryHolidayName {
+  HEXENTAG = "Hexentag",
+  MITTERFRUHL = "Mitterfruhl",
+  SONNSTILL = "Sonnstill",
+  GEHEIMNISTAG = "Geheimnistag",
+  MITTHERBST = "Mittherbst",
+  MONSTILLE = "Monstille"
+}
 
 export enum TimeEntityKind {
   MONTH = "MONTH",
@@ -61,10 +61,10 @@ export const reverseRenderSlices = renderSlices.reduce(
 );
 
 export const intercalaryHolidayMonths = {
-  [intercalaryHolidayNames.HEXENTAG]: 0,
-  [intercalaryHolidayNames.MITTERFRUHL]: 2,
-  [intercalaryHolidayNames.SONNSTILL]: 5,
-  [intercalaryHolidayNames.GEHEIMNISTAG]: 6,
-  [intercalaryHolidayNames.MITTHERBST]: 8,
-  [intercalaryHolidayNames.MONSTILLE]: 11
+  [IntercalaryHolidayName.HEXENTAG]: 0,
+  [IntercalaryHolidayName.MITTERFRUHL]: 2,
+  [IntercalaryHolidayName.SONNSTILL]: 5,
+  [IntercalaryHolidayName.GEHEIMNISTAG]: 6,
+  [IntercalaryHolidayName.MITTHERBST]: 8,
+  [IntercalaryHolidayName.MONSTILLE]: 11
 };

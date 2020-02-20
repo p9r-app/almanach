@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 import { saveToHash, loadFromHash, createIntercalaryHoliday } from "./util.ts";
 import {
   TimeEntityKind,
-  intercalaryHolidayNames,
+  IntercalaryHolidayName,
   intercalaryHolidayMonths
 } from "./constants.ts";
 
@@ -12,7 +12,7 @@ function createHashState() {
   if (!state) {
     state = {
       year: 2480,
-      ...createIntercalaryHoliday(intercalaryHolidayNames.HEXENTAG)
+      ...createIntercalaryHoliday(IntercalaryHolidayName.HEXENTAG)
     };
   }
 
