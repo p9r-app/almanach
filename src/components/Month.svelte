@@ -1,6 +1,6 @@
 <script>
-  import { createMonth } from "../util.js";
-  import { timeEntityTypes, NUM_WEEKDAYS } from "../constants.js";
+  import { createMonth } from "../util.ts";
+  import { TimeEntityKind, NUM_WEEKDAYS } from "../constants.ts";
   import { currentDate, currentScrub } from "../stores.js";
 
   export let month;
@@ -25,7 +25,7 @@
 
   $: isActive = day =>
     $currentScrub.year === $currentDate.year &&
-    $currentDate.entityType === timeEntityTypes.MONTH &&
+    $currentDate.entityType === TimeEntityKind.MONTH &&
     $currentScrub.month === $currentDate.month &&
     day === $currentDate.day;
 </script>

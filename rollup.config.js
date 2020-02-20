@@ -3,8 +3,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
-import json from "@rollup/plugin-json";
 import sveltePreprocess from "svelte-preprocess";
+import typescript from "@rollup/plugin-typescript";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -23,7 +23,6 @@ export default {
     file: "public/build/bundle.js"
   },
   plugins: [
-    json(),
     svelte({
       // enable run-time checks when not in production
       dev: !production,
@@ -34,6 +33,8 @@ export default {
       },
       preprocess
     }),
+
+    typescript(),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In

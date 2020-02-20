@@ -32,10 +32,10 @@ export const intercalaryHolidayNames = {
   MONSTILLE: "Monstille"
 };
 
-export const timeEntityTypes = {
-  MONTH: "MONTH",
-  INTERCALARY_HOLIDAY: "INTERCALARY_HOLIDAY"
-};
+export enum TimeEntityKind {
+  MONTH = "MONTH",
+  INTERCALARY_HOLIDAY = "INTERCALARY_HOLIDAY"
+}
 
 export const renderSlices = [
   [0, 1], // "Nachhexen"
@@ -51,6 +51,14 @@ export const renderSlices = [
   [15], // "Ulriczeit"
   [16, 17] // "Vorhexen"
 ];
+
+export const reverseRenderSlices = renderSlices.reduce(
+  (obj, slice, idx) =>
+    slice.length == 1
+      ? { ...obj, [slice[0]]: idx }
+      : { ...obj, [slice[0]]: idx, [slice[1]]: idx },
+  {}
+);
 
 export const intercalaryHolidayMonths = {
   [intercalaryHolidayNames.HEXENTAG]: 0,

@@ -1,10 +1,10 @@
 import { writable } from "svelte/store";
-import { saveToHash, loadFromHash, createIntercalaryHoliday } from "./util.js";
+import { saveToHash, loadFromHash, createIntercalaryHoliday } from "./util.ts";
 import {
-  timeEntityTypes,
+  TimeEntityKind,
   intercalaryHolidayNames,
   intercalaryHolidayMonths
-} from "./constants.js";
+} from "./constants.ts";
 
 function createHashState() {
   let state = loadFromHash();
@@ -17,7 +17,7 @@ function createHashState() {
   }
 
   const scrubStore =
-    state.entityType === timeEntityTypes.MONTH
+    state.entityType === TimeEntityKind.MONTH
       ? writable({
           year: state.year,
           month: state.month

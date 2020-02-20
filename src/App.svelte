@@ -4,16 +4,25 @@
   import RightArrow from "./svgs/RightArrow.svelte";
   import IntercalaryHoliday from "./components/IntercalaryHoliday.svelte";
 
-  import { getMonthsByYear } from "./util.js";
+  import {
+    getMonthsByYear,
+    createIntercalaryHoliday,
+    createMonth
+  } from "./util.ts";
   import {
     renderSlices,
-    timeEntityTypes,
+    TimeEntityKind,
     NUM_MONTHS,
-    NUM_WEEKDAYS
-  } from "./constants.js";
+    NUM_WEEKDAYS,
+    intercalaryHolidayNames,
+    reverseRenderSlices
+  } from "./constants.ts";
   import { currentDate, currentScrub } from "./stores.js";
 
+  $: previousYearMonths = getMonthsByYear($currentScrub.year - 1);
   $: currentYearMonths = getMonthsByYear($currentScrub.year);
+  $: nextYearMonths = getMonthsByYear($currentScrub.year + 1);
+
   $: currentRenderSet = renderSlices[$currentScrub.month].map(
     slice => currentYearMonths[slice]
   );
@@ -25,6 +34,8 @@
     currentRenderSet.length > 1 ? currentRenderSet[0] : null;
 
   // Methods for month scrubbing
+
+  console.log(reverseRenderSlices);
 
   function scrubNextMonth() {
     const tmpMonthIdx = $currentScrub.month + 1;
@@ -49,13 +60,39 @@
   }
 
   function advanceByDays(days) {
-    if ($currentDate.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
+    let currentDateCopy = $currentDate;
+
+    for (let index = 0; index < days; index += 1) {
+      if (currentDateCopy.entityType === TimeEntityKind.INTERCALARY_HOLIDAY) {
+      } else {
+        // Is it the last month of the year?
+        if (
+          currentDateCopy.month === NUM_MONTHS - 1 &&
+          currentDateCopy.day === 32
+        ) {
+          currentDateCopy = {
+            year: currentDateCopy.year + 1,
+            ...createIntercalaryHoliday(intercalaryHolidayNames.HEXENTAG)
+          };
+        } else if (
+          currentDateCopy.month < NUM_MONTHS - 1 &&
+          currentDateCopy.day < currentYearMonths
+        ) {
+          //
+        }
+      }
     }
+
+    $currentDate = currentDateCopy;
   }
 
   function impedeByDays(days) {
-    if ($currentDate.entityType === timeEntityTypes.INTERCALARY_HOLIDAY) {
+    const currentDateCopy = $currentDate;
+
+    if (currentDateCopy.entityType === TimeEntityKind.INTERCALARY_HOLIDAY) {
     }
+
+    $currentDate = currentDateCopy;
   }
 </script>
 

@@ -1,6 +1,6 @@
 <script>
-  import { createIntercalaryHoliday } from "../util.js";
-  import { timeEntityTypes } from "../constants.js";
+  import { createIntercalaryHoliday } from "../util.ts";
+  import { TimeEntityKind } from "../constants.ts";
   import { currentDate, currentScrub } from "../stores.js";
 
   export let holiday;
@@ -14,7 +14,7 @@
 
   $: active =
     $currentScrub.year === $currentDate.year &&
-    $currentDate.entityType === timeEntityTypes.INTERCALARY_HOLIDAY &&
+    $currentDate.entityType === TimeEntityKind.INTERCALARY_HOLIDAY &&
     holiday.name === $currentDate.day;
 </script>
 
