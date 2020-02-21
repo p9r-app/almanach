@@ -36,25 +36,29 @@
   // Methods for month scrubbing
 
   function scrubNextMonth() {
-    const tmpMonthIdx = $currentScrub.month + 1;
+    const scrub = $currentScrub;
 
-    if (tmpMonthIdx >= NUM_MONTHS) {
-      $currentScrub.year += 1;
-      $currentScrub.month = 0;
+    if (scrub.month + 1 >= NUM_MONTHS) {
+      scrub.year += 1;
+      scrub.month = 0;
     } else {
-      $currentScrub.month += 1;
+      scrub.month += 1;
     }
+
+    $currentScrub = scrub;
   }
 
   function scrubPrevMonth() {
-    const tmpMonthIdx = $currentScrub.month - 1;
+    const scrub = $currentScrub;
 
-    if (tmpMonthIdx < 0) {
-      $currentScrub.year -= 1;
-      $currentScrub.month = NUM_MONTHS - 1;
+    if (scrub.month - 1 < 0) {
+      scrub.year -= 1;
+      scrub.month = NUM_MONTHS - 1;
     } else {
-      $currentScrub.month -= 1;
+      scrub.month -= 1;
     }
+
+    $currentScrub = scrub;
   }
 
   function advanceByDays(days) {
