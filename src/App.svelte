@@ -35,8 +35,6 @@
 
   // Methods for month scrubbing
 
-  console.log(reverseRenderSlices);
-
   function scrubNextMonth() {
     const tmpMonthIdx = $currentScrub.month + 1;
 
