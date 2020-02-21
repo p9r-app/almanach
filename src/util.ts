@@ -187,15 +187,14 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
 
 export interface CurrentDateStateMonth {
   year: number;
-  entityId: number;
+  entityIdx: number;
   entity: MonthTimeEntity;
   day: number;
 }
 export interface CurrentDateStateIntercalaryHoliday {
   year: number;
-  entityId: number;
+  entityIdx: number;
   entity: IntercalaryHolidayTimeEntity;
-  day: IntercalaryHolidayName;
 }
 
 // constructors for time entites
