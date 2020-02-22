@@ -28,6 +28,7 @@
     padding: 0.5em;
     width: 100%;
     text-align: center;
+    touch-action: manipulation;
   }
 
   .active {

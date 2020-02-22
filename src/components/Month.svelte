@@ -31,6 +31,10 @@
 </script>
 
 <style>
+  button {
+    touch-action: manipulation;
+  }
+
   section {
     display: grid;
     grid-template-columns: repeat(minmax(5, 6), 1fr);

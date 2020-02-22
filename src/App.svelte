@@ -99,6 +99,10 @@
 </script>
 
 <style>
+  button {
+    touch-action: manipulation;
+  }
+
   .scrubbing {
     display: flex;
     justify-content: space-between;
