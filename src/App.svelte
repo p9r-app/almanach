@@ -127,7 +127,9 @@
     background: none;
     border: none;
     font-size: 1.5em;
-    width: 3.5em;
+    padding-left: 0;
+    padding-right: 0;
+    width: 4.5ch;
     text-align: center;
     text-decoration: underline;
   }
