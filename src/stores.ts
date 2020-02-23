@@ -16,16 +16,11 @@ function createHashState() {
     };
   }
 
-  const scrubStore =
+  const scrubStore = writable(
     state.entityType === TimeEntityKind.MONTH
-      ? writable({
-          year: state.year,
-          month: state.month
-        })
-      : writable({
-          year: state.year,
-          month: intercalaryHolidayMonths[state.day]
-        });
+      ? { year: state.year, month: state.month }
+      : { year: state.year, month: intercalaryHolidayMonths[state.day] }
+  );
 
   const { subscribe, set } = writable(state);
 
