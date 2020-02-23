@@ -1,10 +1,10 @@
 import { writable } from "svelte/store";
-import { saveToHash, loadFromHash, createIntercalaryHoliday } from "./util.ts";
+import { saveToHash, loadFromHash, createIntercalaryHoliday } from "./util";
 import {
   TimeEntityKind,
   IntercalaryHolidayName,
   intercalaryHolidayMonths
-} from "./constants.ts";
+} from "./constants";
 
 function createHashState() {
   let state = loadFromHash();
