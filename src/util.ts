@@ -185,16 +185,70 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
   ];
 }
 
-export interface CurrentDateStateMonth {
-  year: number;
-  entityIdx: number;
-  entity: MonthTimeEntity;
-  day: number;
-}
-export interface CurrentDateStateIntercalaryHoliday {
-  year: number;
-  entityIdx: number;
-  entity: IntercalaryHolidayTimeEntity;
+export class DateState {
+  constructor(
+    private year: number,
+    private entityIdx: number,
+    private day: number = 0
+  ) {}
+
+  private currentTimeEntity(): TimeEntity {
+    const currentYear = getMonthsByYear(this.year);
+    return currentYear[this.entityIdx];
+  }
+
+  public nextDays(num: number) {
+    [...Array(num)].forEach(() => this.nextDay());
+  }
+
+  public nextDay() {
+    const currentEntity = this.currentTimeEntity();
+
+    if (currentEntity.entityType === TimeEntityKind.MONTH) {
+      if (this.day + 1 === currentEntity.numberOfDays) {
+        this.day = 0;
+        if (this.entityIdx + 1 === NUM_TIME_ENTITIES) {
+          this.entityIdx = 0;
+          this.year += 1;
+        } else {
+          this.entityIdx += 1;
+        }
+      } else {
+        this.day += 1;
+      }
+    } else {
+      this.entityIdx += 1;
+      this.day = 0;
+    }
+  }
+
+  public previousDays(num: number) {
+    [...Array(num)].forEach(() => this.previousDay());
+  }
+
+  public previousDay() {
+    let currentEntity = this.currentTimeEntity();
+
+    if (currentEntity.entityType === TimeEntityKind.MONTH && this.day > 0) {
+      this.day -= 1;
+      return;
+    }
+
+    if (this.entityIdx > 0) {
+      this.entityIdx -= 1;
+    } else {
+      this.entityIdx = NUM_TIME_ENTITIES - 1;
+      this.year -= 1;
+    }
+
+    currentEntity = this.currentTimeEntity();
+
+    if (currentEntity.entityType === TimeEntityKind.MONTH) {
+      this.day = currentEntity.numberOfDays - 1;
+    } else {
+      this.day = 0;
+    }
+  }
 }
 
 // constructors for time entites
