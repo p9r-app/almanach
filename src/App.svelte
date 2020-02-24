@@ -4,34 +4,27 @@
   import RightArrow from "./svgs/RightArrow.svelte";
   import IntercalaryHoliday from "./components/IntercalaryHoliday.svelte";
 
-  import {
-    getMonthsByYear,
-    createIntercalaryHoliday,
-    createMonth
-  } from "./util.ts";
+  import { getMonthsByYear } from "./util.ts";
   import {
     renderSlices,
-    TimeEntityKind,
+    reverseRenderSlices,
     NUM_MONTHS,
-    NUM_WEEKDAYS,
-    IntercalaryHolidayName,
-    reverseRenderSlices
+    NUM_WEEKDAYS
   } from "./constants.ts";
   import { currentDate, currentScrub } from "./stores.js";
 
-  $: previousYearMonths = getMonthsByYear($currentScrub.year - 1);
   $: currentYearMonths = getMonthsByYear($currentScrub.year);
-  $: nextYearMonths = getMonthsByYear($currentScrub.year + 1);
 
-  $: currentRenderSet = renderSlices[$currentScrub.month].map(
-    slice => currentYearMonths[slice]
-  );
+  $: currentRenderSet = renderSlices[$currentScrub.month].map(slice => [
+    currentYearMonths[slice],
+    slice
+  ]);
 
-  $: currentMonth =
+  $: [currentMonth, currentMonthEntityIdx] =
     currentRenderSet.length > 1 ? currentRenderSet[1] : currentRenderSet[0];
 
-  $: currentIntercalaryHoliday =
-    currentRenderSet.length > 1 ? currentRenderSet[0] : null;
+  $: [currentIntercalaryHoliday, currentIntercalaryHolidayEntityIdx] =
+    currentRenderSet.length > 1 ? currentRenderSet[0] : [null, null];
 
   // Methods for month scrubbing
 
@@ -61,40 +54,28 @@
     $currentScrub = scrub;
   }
 
-  function advanceByDays(days) {
-    let currentDateCopy = $currentDate;
+  function advanceByDays(num) {
+    const date = $currentDate;
 
-    for (let index = 0; index < days; index += 1) {
-      if (currentDateCopy.entityType === TimeEntityKind.INTERCALARY_HOLIDAY) {
-      } else {
-        // Is it the last month of the year?
-        if (
-          currentDateCopy.month === NUM_MONTHS - 1 &&
-          currentDateCopy.day === 32
-        ) {
-          currentDateCopy = {
-            year: currentDateCopy.year + 1,
-            ...createIntercalaryHoliday(IntercalaryHolidayName.HEXENTAG)
-          };
-        } else if (
-          currentDateCopy.month < NUM_MONTHS - 1 &&
-          currentDateCopy.day < currentYearMonths
-        ) {
-          //
-        }
-      }
-    }
+    date.nextDays(num);
 
-    $currentDate = currentDateCopy;
+    $currentDate = date;
+    $currentScrub = {
+      year: $currentDate.year,
+      month: reverseRenderSlices[$currentDate.entityIdx]
+    };
   }
 
-  function impedeByDays(days) {
-    const currentDateCopy = $currentDate;
+  function impedeByDays(num) {
+    const date = $currentDate;
 
-    if (currentDateCopy.entityType === TimeEntityKind.INTERCALARY_HOLIDAY) {
-    }
+    date.previousDays(num);
 
-    $currentDate = currentDateCopy;
+    $currentDate = date;
+    $currentScrub = {
+      year: $currentDate.year,
+      month: reverseRenderSlices[$currentDate.entityIdx]
+    };
   }
 </script>
 
@@ -212,10 +193,12 @@
   </nav>
 
   {#if currentIntercalaryHoliday}
-    <IntercalaryHoliday holiday={currentIntercalaryHoliday} />
+    <IntercalaryHoliday
+      holiday={currentIntercalaryHoliday}
+      timeEntityIdx={currentIntercalaryHolidayEntityIdx} />
   {/if}
 
-  <Month month={currentMonth} />
+  <Month month={currentMonth} timeEntityIdx={currentMonthEntityIdx} />
 
   <nav class="navigation">
     <div class="weekNavigation">

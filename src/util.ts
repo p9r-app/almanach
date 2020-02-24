@@ -187,12 +187,12 @@ export function getMonthsByYear(year = 1000): Array<TimeEntity> {
 
 export class DateState {
   constructor(
-    private year: number,
-    private entityIdx: number,
-    private day: number = 0
+    public year: number,
+    public entityIdx: number,
+    public day: number = 0
   ) {}
 
-  private currentTimeEntity(): TimeEntity {
+  public currentTimeEntity(): TimeEntity {
     const currentYear = getMonthsByYear(this.year);
     return currentYear[this.entityIdx];
   }
@@ -250,18 +250,6 @@ export class DateState {
     }
   }
 }
-
-// constructors for time entites
-export const createMonth = (month, day) => ({
-  entityType: TimeEntityKind.MONTH,
-  month,
-  day
-});
-
-export const createIntercalaryHoliday = day => ({
-  entityType: TimeEntityKind.INTERCALARY_HOLIDAY,
-  day
-});
 
 // save and load mechanic
 

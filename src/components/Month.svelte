@@ -1,9 +1,14 @@
 <script>
-  import { createMonth } from "../util.ts";
-  import { TimeEntityKind, NUM_WEEKDAYS } from "../constants.ts";
+  import { DateState } from "../util.ts";
+  import {
+    TimeEntityKind,
+    NUM_WEEKDAYS,
+    reverseRenderSlices
+  } from "../constants.ts";
   import { currentDate, currentScrub } from "../stores.js";
 
   export let month;
+  export let timeEntityIdx;
 
   $: numPreOffsetDays = month.weekdayOffset;
 
@@ -18,15 +23,12 @@
   }));
 
   const saveTheDate = day => () =>
-    ($currentDate = {
-      year: $currentScrub.year,
-      ...createMonth($currentScrub.month, day)
-    });
+    ($currentDate = new DateState($currentScrub.year, timeEntityIdx, day));
 
   $: isActive = day =>
     $currentScrub.year === $currentDate.year &&
-    $currentDate.entityType === TimeEntityKind.MONTH &&
-    $currentScrub.month === $currentDate.month &&
+    $currentDate.currentTimeEntity().entityType === TimeEntityKind.MONTH &&
+    $currentScrub.month === reverseRenderSlices[$currentDate.entityIdx] &&
     day === $currentDate.day;
 </script>
 

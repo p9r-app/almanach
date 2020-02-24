@@ -1,26 +1,20 @@
 import { writable } from "svelte/store";
-import { saveToHash, loadFromHash, createIntercalaryHoliday } from "./util";
-import {
-  TimeEntityKind,
-  IntercalaryHolidayName,
-  intercalaryHolidayMonths
-} from "./constants";
+import { saveToHash, loadFromHash, DateState } from "./util";
+import { reverseRenderSlices } from "./constants";
 
 function createHashState() {
   let state = loadFromHash();
 
   if (!state) {
-    state = {
-      year: 2480,
-      ...createIntercalaryHoliday(IntercalaryHolidayName.HEXENTAG)
-    };
+    state = new DateState(2480, 0);
+  } else {
+    state = new DateState(state.year, state.entityIdx, state.day);
   }
 
-  const scrubStore = writable(
-    state.entityType === TimeEntityKind.MONTH
-      ? { year: state.year, month: state.month }
-      : { year: state.year, month: intercalaryHolidayMonths[state.day] }
-  );
+  const scrubStore = writable({
+    year: state.year,
+    month: reverseRenderSlices[state.entityIdx]
+  });
 
   const { subscribe, set } = writable(state);
 

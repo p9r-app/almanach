@@ -1,21 +1,20 @@
 <script>
-  import { createIntercalaryHoliday } from "../util.ts";
-  import { TimeEntityKind } from "../constants.ts";
+  import { DateState } from "../util.ts";
+  import { TimeEntityKind, reverseRenderSlices } from "../constants.ts";
   import { currentDate, currentScrub } from "../stores.js";
 
   export let holiday;
+  export let timeEntityIdx;
 
   function handleClick() {
-    $currentDate = {
-      year: $currentScrub.year,
-      ...createIntercalaryHoliday(holiday.name)
-    };
+    $currentDate = new DateState($currentScrub.year, timeEntityIdx);
   }
 
   $: active =
     $currentScrub.year === $currentDate.year &&
-    $currentDate.entityType === TimeEntityKind.INTERCALARY_HOLIDAY &&
-    holiday.name === $currentDate.day;
+    $currentDate.currentTimeEntity().entityType ===
+      TimeEntityKind.INTERCALARY_HOLIDAY &&
+    $currentScrub.month === reverseRenderSlices[$currentDate.entityIdx];
 </script>
 
 <style>
