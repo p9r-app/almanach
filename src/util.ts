@@ -211,11 +211,11 @@ export const createIntercalaryHoliday = day => ({
 
 // save and load mechanic
 
-export const saveToHash = state => {
+export function saveToHash(state) {
   window.location.hash = btoa(JSON.stringify(state));
-};
+}
 
-export const loadFromHash = () => {
+export function loadFromHash() {
   if (window.location.hash.length > 0) {
     const base = atob(window.location.hash.slice(1));
 
@@ -225,4 +225,4 @@ export const loadFromHash = () => {
   }
 
   return null;
-};
+}

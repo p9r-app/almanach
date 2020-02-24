@@ -84,3 +84,8 @@ th:not([align]) {
 * {
   font-family: "EB Garamond", serif;
 }
+
+html,
+body {
+  height: 100%;
+}
