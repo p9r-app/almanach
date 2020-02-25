@@ -2,7 +2,7 @@
 
 When playing the [Warhammer Fantasy Roleplay](wfrp4), _Almanach_ helps you keep track of the current date inside its world with ease. It is an implementation of the imperial calendar and can be an invaluable addition to a Game Master's toolbox.
 
-![A screenshot of the App](./screenshot.png)[almanach]
+[![A screenshot of the App](./screenshot.png)][almanach]
 
 Just visit [this website](almanach) on your smartphone, and you're good to go.
 
