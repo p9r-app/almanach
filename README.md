@@ -15,3 +15,7 @@ $ yarn dev
 
 [wfrp4]: https://www.cubicle7games.com/our-games/warhammer-fantasy-roleplay/
 [almanach]: https://almanach.now.sh
+
+## Credits
+
+Thanks to @DuChrisNix for creating the amazing design that makes this little App so wonderful and slick.

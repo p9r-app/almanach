@@ -100,8 +100,11 @@
 
   .monthYearDisplay {
     flex-grow: 1;
-    text-align: center;
-    padding-top: 0.5em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-0.1em);
   }
 
   .monthName {
