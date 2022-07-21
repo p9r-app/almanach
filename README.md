@@ -20,5 +20,5 @@ $ yarn dev
 Thanks to [Chris][chrisprofile] for creating the amazing design that makes this little App so wonderful and slick.
 
 [wfrp4]: https://www.cubicle7games.com/our-games/warhammer-fantasy-roleplay/
-[almanach]: https://almanach.onrender.com/
+[almanach]: https://almanach.crnk.wtf/
 [chrisprofile]: https://github.com/DuChrisNix
